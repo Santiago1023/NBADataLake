@@ -1,117 +1,69 @@
-# NBADataLake
-This repository contains the setup_nba_data_lake.py script, which automates the creation of a data lake for NBA analytics using AWS services. The script integrates Amazon S3, AWS Glue, and Amazon Athena, and sets up the infrastructure needed to store and query NBA-related data.
+## DevOps Challenge: Day 3 (NBA Data Lake for analytics)
 
-# Overview
-The setup_nba_data_lake.py script performs the following actions:
+### Project Overview
+This is a project that extract data from an API call, and store it in AWS S3 bucket.
+Also create a database with glue, and attach with S3, and finally it is created a query with Athena.
 
-Creates an Amazon S3 bucket to store raw and processed data.
-Uploads sample NBA data (JSON format) to the S3 bucket.
-Creates an AWS Glue database and an external table for querying the data.
-Configures Amazon Athena for querying data stored in the S3 bucket.
+**Tools:**
+- NBA Game API
+- Cloud services (AWS S3, AWS Athena, AWS Glue)
+- Python
 
-# Prerequisites
-Before running the script, ensure you have the following:
+**Prerequisites:**
+- AWS account
+- NBA API key
 
-Go to Sportsdata.io and create a free account
-At the top left, you should see "Developers", if you hover over it you should see "API Resources"
-Click on "Introduction & Testing"
+**Basic concept of the aws services used:**
+- [AWS S3](https://docs.aws.amazon.com/s3/ "AWS S3") is used to store, manage, analyze, and protect any amount of data. It is for many use cases like data lakes, deploy static web pages, cloud native applications, mobile applications, among others.
+- [AWS Athena](https://docs.aws.amazon.com/athena/ "AWS Athena") is a service to make queries in an easy way.
+Athena is serverless, that means is no necessary configure o setup infrastructure, so you do not worry about that.
+Athena is ideal for running SQL queries on data stored in S3 in formats like JSON, Parquet, or CSV. It is often used for ad-hoc querying and gaining quick insights without setting up a database.
+It is very useful to analyze data, and integrate it with ML tools to predict what your business need.
+- [AWS Glue](https://docs.aws.amazon.com/glue/ "AWS Glue") is a serverless data integration service that helps you prepare and transform data for analytics. It includes tools for ETL (Extract, Transform, Load) jobs and a Data Catalog for metadata management.
+Glue is designed to build data pipelines, automate data transformation processes, and manage metadata for datasets stored in S3 or other sources. It enables you to clean and structure raw data for analytics.
 
-Click on "SportsDataIO API Free Trial" and fill out the information & be sure to select NBA for this tutorial
+I want to share with you a table that chat gpt did, and I think it is useful.
+They can work together, Glue prepares and organizes the data, while Athena queries the data directly.
+![chat-gpt-table](/imagenes/chat-gpt-table.png)
 
-You will get an email and at the bottom it says "Launch Developer Portal"
+### Steps
 
-By default it takes you to the NFL, on the left click on NBA
+1. Create an AWS account [(create free account)](https://aws.amazon.com/es/free/?nc1=h_ls&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all "(create free account)")
+2. in the aws console, click in the cloud shell button to open a cloud shell terminal
+![aws-console](/imagenes/aws-console.png)
+3. type `nano setup_nba_data_lake.py` in the shell console and enter
+![shell1](/imagenes/shell1.png)
+4. go to the repository, copy the src/setup_nba_data_lake.py file in the terminal and type ctrl + x , then type y
+(Note: ensure that your bucket name is unique, and create your api key, beacuse you will need it, in the next step)
+![shell2](/imagenes/shell2.png)
+5. type `nano .env` in the shell console and enter
+![shell3](/imagenes/shell3.png)
+6. go to the repository, copy src/.env file in the terminal, put your information, type ctrl +x, then type y
+(Note: go to the api web page, create an api key, and put it here)
+![shell4](/imagenes/shell4.png)
+7. type `pip install python-dotenv` to install the packages to use .env files
+![shell5](/imagenes/shell5.png)
+8. now run the code, type `python setup_nba_data_lake.py` and check everything is ok
+![shell5](/imagenes/shell6.png)
+9. now in the search bar type s3 and go to s3 service, and check the bucket created
+![s3](/imagenes/s3.png)
+10. enter and review the files
+![s3-2](/imagenes/s3-2.png)
+11. download the raw file
+![s3-raw-data](/imagenes/s3-raw-data.png)
+12. open the raw file in vscode, and you can see that it is a huge file data
+![s3-raw-data-vsc](/imagenes/s3-raw-data.png)
+13. in the serach bar type athena and click in launch query editor button and paste this query `SELECT FirstName, LastName, Position, Team FROM nba_players WHERE Position = 'PG';` , click in 
 
-Scroll down until you see "Standings"
+13. do the same with the athena file
+![s3-athena](/imagenes/s3-athena.png)
+14. open the athena file in vscode
+![s3-athena-vsc](/imagenes/s3-athena-vsc.png)
 
-You'll "Query String Parameters", the value in the drop down box is your API key. 
+#### With love and grateful to people who creates these projects:
+[Day 1 explanation](https://www.youtube.com/watch?v=A95XBJFOqjw "Day 1")
 
-Copy this string because you will need to paste it later in the script
+[Original code](https://github.com/ShaeInTheCloud/30days-weather-dashboard/tree/main "original code")
 
-IAM Role/Permissions: Ensure the user or role running the script has the following permissions:
-
-S3: s3:CreateBucket, s3:PutObject, s3:DeleteBucket, s3:ListBucket
-Glue: glue:CreateDatabase, glue:CreateTable, glue:DeleteDatabase, glue:DeleteTable
-Athena: athena:StartQueryExecution, athena:GetQueryResults
-
-# START HERE 
-# Step 1: Open CloudShell Console
-
-1. Go to aws.amazon.com & sign into your account
-
-2. In the top, next to the search bar you will see a square with a >_ inside, click this to open the CloudShell
-
-# Step 2: Create the setup_nba_data_lake.py file
-1. In the CLI (Command Line Interface), type
-```bash
-nano setup_nba_data_lake.py
-```
-
-
-2. In another window, go to [GitHub](https://github.com/alahl1/NBADataLake)
-
--Copy the contents inside the setup_nba_data_lake.py file
-
--Go back to the Cloudshell window and paste the contents inside the file.
-
-3. Find the line of code under #Sportsdata.io configurations that says "api_key" 
-paste your api key inside the quotations
-
-4. Press ^X to exit, press Y to save the file, press enter to confirm the file name 
-
-
-# Step 3: Create .env file
-1. In the CLI (Command Line Interface), type
-```bash
-nano .env
-```
-2. paste the following line of code into your file, ensure you swap out with your API key
-```bash
-SPORTS_DATA_API_KEY=your_sportsdata_api_key
-NBA_ENDPOINT=https://api.sportsdata.io/v3/nba/scores/json/Players
-```
-
-3. Press ^X to exit, press Y to save the file, press enter to confirm the file name 
-
-
-# Step 4: Run the script
-1. In the CLI type
-```bash
-python3 setup_nba_data_lake.py
-```
--You should see the resources were successfully created, the sample data was uploaded successfully and the Data Lake Setup Completed
-
-# Step 5: Manually Check For The Resources
-1. In the Search Bar, type S3 and click blue hyper link name
-
--You should see 2 General purpose bucket named "Sports-analytics-data-lake"
-
--When you click the bucket name you will see 3 objects are in the bucket
-
-2. Click on raw-data and you will see it contains "nba_player_data.json"
-
-3. Click the file name and at the top you will see the option to Open the file
-
--You'll see a long string of various NBA data
-
-4. Head over to Amazon Athena and you could paste the following sample query:
-```bash
-SELECT FirstName, LastName, Position, Team
-FROM nba_players
-WHERE Position = 'PG';
-```
-
--Click Run
--You should see an output if you scroll down under "Query Results"
-
-### **What We Learned**
-1. Securing AWS services with least privilege IAM policies.
-2. Automating the creation of services with a script.
-3. Integrating external APIs into cloud-based workflows.
-
-
-### **Future Enhancements**
-1. Automate data ingestion with AWS Lambda
-2. Implement a data transformation layer with AWS Glue ETL
-3. Add advanced analytics and visualizations (AWS QuickSight)
+[DevOps Challenges info](https://www.linkedin.com/posts/deshae-lyda_30-day-devops-challenge-day-1-devopsallstarschallenge-activity-7282060035038359552-yUpd?utm_source=share&utm_medium=member_desktop "DevOps Challenges info")
 
