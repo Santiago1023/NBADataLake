@@ -2,7 +2,7 @@
 
 ### Project Overview
 This is a project that extract data from an API call, and store it in AWS S3 bucket.
-Also create a database with glue, and attach with S3, and finally it is created a query with Athena.
+Also create a database with glue, and attach it with S3, finally it is created a query with Athena.
 
 **Tools:**
 - NBA Game API
@@ -53,7 +53,7 @@ They can work together, Glue prepares and organizes the data, while Athena queri
 ![s3-raw-data](/imagenes/s3-raw-data.png)
 12. open the raw file in vscode, and you can see that it is a huge file data
 ![s3-raw-data-vsc](/imagenes/s3-raw-data.png)
-13. in the serach bar type athena and click in launch query editor button and paste this query `SELECT FirstName, LastName, Position, Team FROM nba_players WHERE Position = 'PG';` , click in 
+13. in the serach bar type athena and click in launch query editor button and paste this query `SELECT FirstName, LastName, Position, Team FROM nba_players WHERE Position = 'PG';` , click in
 
 13. do the same with the athena file
 ![s3-athena](/imagenes/s3-athena.png)
