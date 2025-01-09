@@ -24,41 +24,41 @@ Glue is designed to build data pipelines, automate data transformation processes
 
 I want to share with you a table that chat gpt did, and I think it is useful.
 They can work together, Glue prepares and organizes the data, while Athena queries the data directly.
-![chat-gpt-table](/imagenes/chat-gpt-table.png)
+![chat-gpt-table](/images/chat-gpt-table.png)
 
 ### Steps
 
 1. Create an AWS account [(create free account)](https://aws.amazon.com/es/free/?nc1=h_ls&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all "(create free account)")
 2. in the aws console, click in the cloud shell button to open a cloud shell terminal
-![aws-console](/imagenes/aws-console.png)
+![aws-console](/images/aws-console.png)
 3. type `nano setup_nba_data_lake.py` in the shell console and enter
-![shell1](/imagenes/shell1.png)
+![shell1](/images/shell1.png)
 4. go to the repository, copy the src/setup_nba_data_lake.py file in the terminal and type ctrl + x , then type y
 (Note: ensure that your bucket name is unique, and create your api key, beacuse you will need it, in the next step)
-![shell2](/imagenes/shell2.png)
+![shell2](/images/shell2.png)
 5. type `nano .env` in the shell console and enter
-![shell3](/imagenes/shell3.png)
+![shell3](/images/shell3.png)
 6. go to the repository, copy src/.env file in the terminal, put your information, type ctrl +x, then type y
 (Note: go to the api web page, create an api key, and put it here)
-![shell4](/imagenes/shell4.png)
+![shell4](/images/shell4.png)
 7. type `pip install python-dotenv` to install the packages to use .env files
-![shell5](/imagenes/shell5.png)
+![shell5](/images/shell5.png)
 8. now run the code, type `python setup_nba_data_lake.py` and check everything is ok
-![shell5](/imagenes/shell6.png)
+![shell5](/images/shell6.png)
 9. now in the search bar type s3 and go to s3 service, and check the bucket created
-![s3](/imagenes/s3.png)
+![s3](/images/s3.png)
 10. enter and review the files
-![s3-2](/imagenes/s3-2.png)
+![s3-2](/images/s3-2.png)
 11. download the raw file
-![s3-raw-data](/imagenes/s3-raw-data.png)
+![s3-raw-data](/images/s3-raw-data.png)
 12. open the raw file in vscode, and you can see that it is a huge file data
-![s3-raw-data-vsc](/imagenes/s3-raw-data.png)
+![s3-raw-data-vsc](/images/s3-raw-data.png)
 13. in the serach bar type athena and click in launch query editor button and paste this query `SELECT FirstName, LastName, Position, Team FROM nba_players WHERE Position = 'PG';` , click in
 
 13. do the same with the athena file
-![s3-athena](/imagenes/s3-athena.png)
+![s3-athena](/images/s3-athena.png)
 14. open the athena file in vscode
-![s3-athena-vsc](/imagenes/s3-athena-vsc.png)
+![s3-athena-vsc](/images/s3-athena-vsc.png)
 
 #### With love and grateful to people who creates these projects:
 [Day 1 explanation](https://www.youtube.com/watch?v=A95XBJFOqjw "Day 1")
