@@ -53,17 +53,13 @@ They can work together, Glue prepares and organizes the data, while Athena queri
 ![s3-raw-data](/images/s3-raw-data.png)
 12. open the raw file in vscode, and you can see that it is a huge file data
 ![s3-raw-data-vsc](/images/s3-raw-data.png)
-13. in the serach bar type athena and click in launch query editor button and paste this query `SELECT FirstName, LastName, Position, Team FROM nba_players WHERE Position = 'PG';` , click in
-
-13. do the same with the athena file
-![s3-athena](/images/s3-athena.png)
-14. open the athena file in vscode
-![s3-athena-vsc](/images/s3-athena-vsc.png)
+13. in the serach bar type athena and click in launch query editor button and paste this query `SELECT FirstName, LastName, Position, Team FROM nba_players WHERE Position = 'PG';` , click in run and you can see the results of the query
+![query](/images/query.png)
 
 #### With love and grateful to people who creates these projects:
-[Day 1 explanation](https://www.youtube.com/watch?v=A95XBJFOqjw "Day 1")
+[Day 3 explanation](https://www.youtube.com/watch?v=RAkMac2QgjM "Day 3")
 
-[Original code](https://github.com/ShaeInTheCloud/30days-weather-dashboard/tree/main "original code")
+[Original code](https://github.com/alahl1/NBADataLake "original code")
 
-[DevOps Challenges info](https://www.linkedin.com/posts/deshae-lyda_30-day-devops-challenge-day-1-devopsallstarschallenge-activity-7282060035038359552-yUpd?utm_source=share&utm_medium=member_desktop "DevOps Challenges info")
+[DevOps Challenges info](https://www.linkedin.com/posts/alicia-ahl_devopsallstarchallenge-devopsallstarchallenge-activity-7282773132455624705-VkDB?utm_source=share&utm_medium=member_desktop "DevOps Challenges info")
 
